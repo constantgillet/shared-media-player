@@ -4,6 +4,7 @@ body {
     padding: 0;
     font-family: 'Roboto', sans-serif;
     color: #2D3436;
+    overflow: hidden;
 }
 
 .notification {
@@ -12,12 +13,30 @@ body {
     height: 67px;
     right: 0px;
     top: 67px;
-    background: #E34A4A;
     border-radius: 9px 0px 0px 9px;
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
+    animation-name: displayNotification;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+    display: none;
+
+    &.notification--error {
+        background: #E34A4A;
+        
+    }
+
+    &.notification--success {
+        background: #00B894;
+    
+    }
+
+    &.notificationDisplay {
+        display: flex;
+    }
 
     .message {
         margin-left: 35px;
@@ -32,6 +51,8 @@ body {
             left: 13px;
         }
     }
+
+
 }
 
 .videoPlayerMain {
@@ -96,3 +117,17 @@ body {
     }
 }
 
+@keyframes displayNotification {
+    0% {
+        opacity: 0;
+    }
+    20% {
+        opacity: 1;
+    }
+    80% {
+        right: 0px;
+    }
+    100% {
+        right: -338px;
+    }
+}
