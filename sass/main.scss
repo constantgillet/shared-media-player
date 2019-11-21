@@ -1,0 +1,98 @@
+body {
+    background: #FDFDFD;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    color: #2D3436;
+}
+
+.notification {
+    position: absolute;
+    width: 338px;
+    height: 67px;
+    right: 0px;
+    top: 67px;
+    background: #E34A4A;
+    border-radius: 9px 0px 0px 9px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .message {
+        margin-left: 35px;
+
+        &::before {
+            background-image: url('../images/error.svg');
+            content: " ";
+            width: 32px;
+            height: 32px;
+            position: absolute;
+            top: 17px;
+            left: 13px;
+        }
+    }
+}
+
+.videoPlayerMain {
+    display: flex;
+    justify-content: center; /*centers items on the line (the x-axis by default)*/
+    align-items: center; 
+    height: 100vh;
+
+    .videoSelectorSection {
+        background: white;
+        width: 1122px;
+        height: 615px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.07);
+        border-radius: 14px;
+        display: flex;
+        justify-content: center; /*centers items on the line (the x-axis by default)*/
+        align-items: center; 
+        flex-direction: column;
+
+        .title {
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .description {
+            width: 300px;
+            text-align: center;
+            font-size: 17px;
+            font-weight: lighter;
+            margin-bottom: 23px;
+        }
+
+        .videoForm {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            .linkInput {
+                width: 626px;
+                height: 47px;
+                background: #FCFCFC;
+                border: 1px solid #AAAAAA;
+                box-sizing: border-box;
+                border-radius: 10px;
+                font-size: 15px;
+                padding-left: 20px;
+                color: #2D3436;
+            }
+
+            .submitButton {
+                width: 231px;
+                height: 57px;
+                background: #00B894;
+                border-radius: 9px;
+                border: 0;
+                color: white;
+                font-size: 17px;
+                margin-top: 35px;
+            }
+        }
+    }
+}
+
