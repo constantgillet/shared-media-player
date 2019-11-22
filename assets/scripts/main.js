@@ -1,5 +1,6 @@
 //Connecting to socket io
 const socket = io.connect('http://localhost:8080')
+let videoLink
 
 //Notification class
 class Notification
@@ -32,3 +33,49 @@ class Notification
 
 //Notification object
 const notification = new Notification(document.querySelector('.js-notification'))
+
+class VideoLinkForm 
+{
+   constructor(_element)
+   {
+      this.element = _element
+      this.submitButton = this.element.querySelector('.js-submitButton')
+      this.submitButton.addEventListener('click', this.validation(_element.querySelector('.js-linkInput')))
+   }
+
+   validation(_linkInput) 
+   {
+      return function(_event)
+      {
+         _event.preventDefault()
+
+         const value = _linkInput.value
+         
+         //the input is empty
+         if(value.length != 0)
+         {  
+            //We chain if the string of value contain http and // and .mp4
+            if(value.substr(0, 4) == 'http' && value.includes('//') && value.substr(value.length-4, value.length-1) == '.mp4')
+            {
+               notification.displayNotification('success', 'Your Channel has been created')
+
+               videoLink = value
+               
+               //Displaying video
+            }
+            else 
+            {
+               notification.displayNotification('error', 'This is not an mp4 link')
+            }
+         }
+         else 
+         {
+            notification.displayNotification('error', 'The link is empty')
+         }
+      }
+   }
+}
+
+const videoLinkForm = new VideoLinkForm(document.querySelector('.js-videoLinkForm'))
+
+
