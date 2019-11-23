@@ -14,11 +14,12 @@
     </div>
     <head></head>
     <main class="videoPlayerMain">
-        <div class="videoPlayerSection">
-            
+        <div class="videoPlayerSection js-videoPlayerSection">
+            <div>Your channel: <span class="channelId">E45641</span><svg class="copyChannelId"></svg></div>
+            <video src=""></video>
         </div>
-        <div class="videoSelectorSection is-active">
-            <h2 class="title">SHARE</h2>
+        <div class="videoSelectorSection is-active js-videoSelectorSection">
+            <h2 class="title">Share</h2>
             <p class="description">Share a youtube video, a mp4 link, a local video</p>
             <form action="/submit-videoLink" method="post" class="videoForm js-videoLinkForm">
                 <input type="text" name="videoLink" placeholder="https://video.com/video.mp4" class="linkInput js-linkInput" required>

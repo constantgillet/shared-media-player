@@ -1,5 +1,5 @@
 body {
-    background: #FDFDFD;
+    background: #f0f0f0;;
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif;
@@ -24,7 +24,7 @@ body {
     animation-timing-function: ease-out;
     display: none;
     will-change: background, display, right, opacity;
-    
+
     &.notification--error {
         background: #E34A4A;
     }
@@ -47,7 +47,7 @@ body {
             height: 32px;
             position: absolute;
             top: 17px;
-            left: 13px;
+            left: 19px;
         }
     }
 }
@@ -109,8 +109,17 @@ body {
                 color: white;
                 font-size: 17px;
                 margin-top: 35px;
+                font-weight: bold;
             }
         }
+
+        &.is-active {
+            display: flex;
+        }
+    }
+
+    .videoPlayerSection {
+        display: none;
 
         &.is-active {
             display: flex;

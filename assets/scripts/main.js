@@ -1,3 +1,7 @@
+const body = document.querySelector('body')
+const videoSelectorSection = body.querySelector('.js-videoSelectorSection')
+const videoPlayerSection = body.querySelector('.js-videoPlayerSection')
+
 //Connecting to socket io
 const socket = io.connect('http://localhost:8080')
 let videoLink
@@ -60,8 +64,13 @@ class VideoLinkForm
                notification.displayNotification('success', 'Your Channel has been created')
 
                videoLink = value
-               
-               //Displaying video
+
+               //Hidding videoSelectorSection
+               videoSelectorSection.classList.remove('is-active')
+
+               //Display videoPlayerSection
+               videoPlayerSection.classList.add('is-active')
+
             }
             else 
             {
