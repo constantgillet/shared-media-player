@@ -6,6 +6,9 @@ body {
   color: #2D3436;
   overflow: hidden; }
 
+h1, h2, h3, h4 {
+  color: #3A0365; }
+
 .notification {
   position: absolute;
   width: 338px;
@@ -84,17 +87,58 @@ body {
       .videoPlayerMain .videoSelectorSection .videoForm .submitButton {
         width: 231px;
         height: 57px;
-        background: #00B894;
+        background: linear-gradient(102.31deg, #3A0365 22.72%, #00B894 94.83%);
+        box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.27);
         border-radius: 9px;
         border: 0;
         color: white;
         font-size: 17px;
         margin-top: 35px;
-        font-weight: bold; }
+        font-weight: bold;
+        position: relative; }
+        .videoPlayerMain .videoSelectorSection .videoForm .submitButton::before {
+          background-image: url("../images/share.svg");
+          content: " ";
+          width: 32px;
+          height: 32px;
+          position: absolute;
+          top: 17px;
+          left: 19px; }
     .videoPlayerMain .videoSelectorSection.is-active {
       display: flex; }
   .videoPlayerMain .videoPlayerSection {
-    display: none; }
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; }
+    .videoPlayerMain .videoPlayerSection .videoPlayerHeader {
+      font-weight: bolder;
+      font-size: 32px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      color: #3A0365; }
+      .videoPlayerMain .videoPlayerSection .videoPlayerHeader .channelId {
+        font-weight: normal;
+        font-size: 29px;
+        margin-left: 5px;
+        color: #2D3436;
+        text-transform: initial; }
+      .videoPlayerMain .videoPlayerSection .videoPlayerHeader .copyIdButton {
+        width: 20px;
+        height: 20px;
+        margin-left: 10px; }
+    .videoPlayerMain .videoPlayerSection .videoPlayer {
+      width: 1122px;
+      height: 615px; }
+      .videoPlayerMain .videoPlayerSection .videoPlayer video {
+        object-fit: cover;
+        width: 1122px;
+        height: 615px;
+        border-radius: 14px;
+        box-shadow: 0px 4px 13px 0px rgba(0, 0, 0, 0.4); }
     .videoPlayerMain .videoPlayerSection.is-active {
       display: flex; }
 

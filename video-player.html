@@ -14,18 +14,27 @@
     </div>
     <head></head>
     <main class="videoPlayerMain">
+        <!--Video player section start-->
         <div class="videoPlayerSection js-videoPlayerSection">
-            <div>Your channel: <span class="channelId">E45641</span><svg class="copyChannelId"></svg></div>
-            <video src=""></video>
-        </div>
-        <div class="videoSelectorSection is-active js-videoSelectorSection">
+            <div class="videoPlayerHeader">Your channel: 
+                <span class="channelId js-channelIdSpan">#E45641</span>
+                <div class="copyChannelButton js-copyChannelButton">
+                    <object type="image/svg+xml" style="pointer-events: none" data="assets/images/copyButton.svg" class=""></object>
+                </div>
+            </div>           
+            <div class="videoPlayer">
+                <video src="assets/video.mp4" controls class="js-video"></video>
+            </div>
+        </div><!--Video player section end-->
+        <!--Video Selector section start-->
+        <div class="videoSelectorSection js-videoSelectorSection is-active">
             <h2 class="title">Share</h2>
             <p class="description">Share a youtube video, a mp4 link, a local video</p>
             <form action="/submit-videoLink" method="post" class="videoForm js-videoLinkForm">
                 <input type="text" name="videoLink" placeholder="https://video.com/video.mp4" class="linkInput js-linkInput" required>
                 <input type="submit" name="" value="Share" class="submitButton js-submitButton">
             </form>
-        </div>
+        </div><!--Video Selector section end-->
     </main>
 <script src="http://127.0.0.1:8080/socket.io/socket.io.js"></script>
 <script src="assets/scripts/main.js" type="text/javascript"></script>

@@ -4,6 +4,8 @@ const videoPlayerSection = body.querySelector('.js-videoPlayerSection')
 
 //Connecting to socket io
 const socket = io.connect('http://localhost:8080')
+console.log("connected to socket")
+
 let videoLink
 
 //Notification class
@@ -35,8 +37,7 @@ class Notification
    }
 }
 
-//Notification object
-const notification = new Notification(document.querySelector('.js-notification'))
+
 
 class VideoLinkForm 
 {
@@ -44,6 +45,7 @@ class VideoLinkForm
    {
       this.element = _element
       this.submitButton = this.element.querySelector('.js-submitButton')
+
       this.submitButton.addEventListener('click', this.validation(_element.querySelector('.js-linkInput')))
    }
 
@@ -65,6 +67,10 @@ class VideoLinkForm
 
                videoLink = value
 
+               socket.emit('createChannel', {'videoLink': value})
+
+               videoPlayer.video.src = value
+
                //Hidding videoSelectorSection
                videoSelectorSection.classList.remove('is-active')
 
@@ -85,6 +91,47 @@ class VideoLinkForm
    }
 }
 
+class VideoPlayer
+{
+   constructor(_element)
+   {
+      this.element = _element
+      this.channelIdSpan = this.element.querySelector('.js-channelIdSpan')
+      this.video = this.element.querySelector('.js-video')
+      this.channelId = null
+      this.videoUrl = null
+      this.copyChannelButton = this.element.querySelector('.js-copyChannelButton')
+      
+      this.copyChannel()
+   }
+
+   //copy link of the channel function
+   copyChannel()
+   {  
+      this.copyChannelButton.addEventListener('click', () => 
+      {
+         const sharedLink = window.location.hostname + ':' + location.port + '/video-player.html?channelId=' + this.channelId
+         sharedLink.select()
+         document.execCommand('copy')
+      })
+   }
+}
+
+//Notification object
+const notification = new Notification(document.querySelector('.js-notification'))
+//Video link form object
 const videoLinkForm = new VideoLinkForm(document.querySelector('.js-videoLinkForm'))
+//video player object
+const videoPlayer = new VideoPlayer(document.querySelector('.js-videoPlayerSection'))
 
+//If the client recieve 'SetChannelId'
+socket.on('setChannelId', (data) => 
+{
+   alert('Le chanel est' + data.channelId)
 
+   //We save the channel into videoPlayer.channelId
+   videoPlayer.channelId = data.channelId
+
+   //Change the displaying of the channel
+   videoPlayer.channelIdSpan.innerHTML = videoPlayer.channelId
+})
