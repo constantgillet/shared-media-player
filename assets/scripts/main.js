@@ -1,6 +1,7 @@
 const body = document.querySelector('body')
 const videoSelectorSection = body.querySelector('.js-videoSelectorSection')
 const videoPlayerSection = body.querySelector('.js-videoPlayerSection')
+const currentUrl = window.location.href
 
 //Connecting to socket io
 const socket = io.connect('http://localhost:8080')
@@ -128,6 +129,17 @@ const videoLinkForm = new VideoLinkForm(document.querySelector('.js-videoLinkFor
 //video player object
 const videoPlayer = new VideoPlayer(document.querySelector('.js-videoPlayerSection'))
 
+//We check if the client puted a channelId into the url
+if(currentUrl.includes('?ChannelId=#'))
+{ 
+   const askedChannelId = currentUrl.substring(currentUrl.lastIndexOf('#'), currentUrl.length)
+   
+   console.log(`Trying to join the channel ${ askedChannelId }`)
+
+   //We send the channel is to the server 
+   socket.emit('joinChannel', { channelId: askedChannelId })
+}
+
 //If the client recieve 'SetChannelId'
 socket.on('setChannelId', (data) => 
 {
@@ -138,4 +150,10 @@ socket.on('setChannelId', (data) =>
 
    //Change the displaying of the channel
    videoPlayer.channelIdSpan.innerHTML = videoPlayer.channelId
+})
+
+//If the client recieve 'SetChannelId'
+socket.on('joinChannel', (data) => 
+{
+   notification.displayNotification('success', 'You have joigned a channel')
 })
