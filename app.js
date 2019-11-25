@@ -9,13 +9,6 @@ const express = require('express'),
 
 console.log('Server started')
 
-
-app.get('/video-player.html', (req, res) => 
-{
-    console.log("tagId is set to " + req.query.tagId)
-    res.sendFile(path.join(__dirname+'/video-player.html'))
-})
-
 //Serving stating files
 app.use(express.static(__dirname))
 

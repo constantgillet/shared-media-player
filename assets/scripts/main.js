@@ -24,7 +24,7 @@ class Notification
       this.element.classList.remove('notificationDisplay')
       
       //return undefinded to replay animation
-      void this.element.offsetWidth
+      //void this.element.offsetWidth
       
       //If the type is success we replace notification--error by notification--success
       if(type == 'success')
@@ -32,8 +32,12 @@ class Notification
       else
          this.element.classList.replace('notification--success', 'notification--error')
 
-      //We add the class to display the div of the notification
-      this.element.classList.add('notificationDisplay')
+      //we wait one frame
+      window.requestAnimationFrame(() => 
+      {
+         //We add the class to display the div of the notification
+         this.element.classList.add('notificationDisplay')
+      })
    }
 }
 
