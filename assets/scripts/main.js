@@ -157,3 +157,22 @@ socket.on('joinChannel', (data) =>
 {
    notification.displayNotification('success', 'You have joigned a channel')
 })
+
+//If the client recieve 'Error'
+socket.on('errorSend', (data) => 
+{
+   let errorMessage
+
+   switch (data.ErrorId)
+   {
+      case 'channelDoesntExist':
+         errorMessage = 'This channel doesn\'t exist'
+   }
+
+   notification.displayNotification('error', errorMessage)
+})
+
+socket.on('test', (data) => 
+{
+   console.log('room test')
+})

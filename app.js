@@ -19,6 +19,7 @@ let channels = []
 io.sockets.on('connection', (socket) => 
 {
     const thisClientId = socket.id
+    let currentChannel
 
     console.log('a client is connected', thisClientId)
 
@@ -39,6 +40,11 @@ io.sockets.on('connection', (socket) =>
 
         channels[thisUserChannelId] = userChannel
 
+        currentChannel = thisUserChannelId
+
+        //join the room called thisUserChannelId
+        socket.join(currentChannel)
+
         socket.emit('setChannelId', { channelId: thisUserChannelId })
 
         console.log(`A client has created a channel id: ${ thisUserChannelId }, video url: ${ data.videoLink }`)
@@ -55,10 +61,17 @@ io.sockets.on('connection', (socket) =>
             channels[data.channelId].clientsConnected.push(thisClientId)
 
             socket.emit('joinChannel', { channelId: data.channelId, videoUrl: channels[data.channelId].videoLink })
+
+            //joining the room with the room with the channel id 
+            socket.join(data.channelId)
+
+            currentChannel = data.channelId
+
+            socket.to(currentChannel).emit('test', data)
         }
         else 
         {
-            console.log('erreur')
+            socket.emit('errorSend', { ErrorId: 'channelDoesntExist' })
         }
     })
     
