@@ -104,8 +104,13 @@ class VideoPlayer
       this.channelId = null
       this.videoUrl = null
       this.copyChannelButton = this.element.querySelector('.js-copyChannelButton')
-      
+      this.currentTimeText = this.element.querySelector('.js-currentTimeText')
+      this.buttonPlayPause = this.element.querySelector('.js-buttonPlayPause')
+
       this.copyChannel()
+      this.timeTextUpdate()
+
+      //this.buttonPlayPause.addEventListener('click', this.playPause)
    }
 
    //copy link of the channel into clipboard
@@ -127,6 +132,37 @@ class VideoPlayer
 
          notification.displayNotification('success', 'You copied the link to the clipboard')
       })
+   }
+
+   //update the text of the time
+   timeTextUpdate()
+   {
+      let currentMinutes
+      let currentSeconds
+
+      this.video.addEventListener('timeupdate', () => 
+      {
+         currentMinutes = Math.floor(this.video.currentTime / 60)
+         currentSeconds = Math.floor(this.video.currentTime - currentMinutes * 60) //On retire les minutes des secondes courantes
+         // if the number if < 10 we display a 0
+         currentSeconds = ('0' + Math.floor(currentSeconds)).slice(-2)
+         currentMinutes = ('0' + Math.floor(currentMinutes)).slice(-2)
+         console.log(currentMinutes + ':' + currentSeconds)
+
+         this.currentTimeText.innerText = `${currentMinutes}:${currentSeconds}`
+      })
+   }
+
+   playPause()
+   {
+      if(this.video.paused)
+      {
+         this.video.play()
+      } 
+      else 
+      {
+         this.video.pause()
+      }
    }
 }
 

@@ -131,6 +131,7 @@ h1, h2, h3, h4 {
         height: 20px;
         margin-left: 10px; }
     .videoPlayerMain .videoPlayerSection .videoPlayer {
+      position: relative;
       width: 1122px;
       height: 615px; }
       .videoPlayerMain .videoPlayerSection .videoPlayer video {
@@ -139,6 +140,27 @@ h1, h2, h3, h4 {
         height: 615px;
         border-radius: 14px;
         box-shadow: 0px 4px 13px 0px rgba(0, 0, 0, 0.4); }
+      .videoPlayerMain .videoPlayerSection .videoPlayer .controls {
+        position: absolute;
+        width: 100%;
+        height: 38px;
+        border-radius: 0px 0px 14px 14px;
+        background: rgba(52, 42, 60, 0.7);
+        bottom: 0px;
+        color: white;
+        display: flex; }
+        .videoPlayerMain .videoPlayerSection .videoPlayer .controls .currentTime {
+          margin-top: 10px;
+          margin-left: 28px;
+          opacity: 0.8; }
+        .videoPlayerMain .videoPlayerSection .videoPlayer .controls .buttonPlayPause {
+          opacity: 0.8;
+          width: 20px;
+          height: 20px;
+          margin-top: 9px;
+          margin-left: 28px; }
+          .videoPlayerMain .videoPlayerSection .videoPlayer .controls .buttonPlayPause--play {
+            background-image: url("../images/playButton.svg"); }
     .videoPlayerMain .videoPlayerSection.is-active {
       display: flex; }
 
