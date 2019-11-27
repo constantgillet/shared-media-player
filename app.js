@@ -67,7 +67,8 @@ io.sockets.on('connection', (socket) =>
 
             currentChannel = data.channelId
 
-            socket.to(currentChannel).emit('test', data)
+            //We send a notification that an user joined the channel of the other users
+            socket.to(currentChannel).emit('successSend', { SuccessId: 'userJoinedChannel' })
         }
         else 
         {

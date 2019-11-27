@@ -157,13 +157,25 @@ socket.on('setChannelId', (data) =>
    //Change the displaying of the channel
    videoPlayer.channelIdSpan.innerHTML = videoPlayer.channelId
 
-   notification.displayNotification('success', `You have created the channel ${ videoPlayer.channelId }`)
+   notification.displayNotification('success', 'Your channel have created a channel')
 })
 
 //If the client recieve 'SetChannelId'
 socket.on('joinChannel', (data) => 
 {
-   notification.displayNotification('success', 'You have joigned a channel')
+   videoPlayer.videoUrl = data.videoUrl
+   videoPlayer.video.src = videoPlayer.videoUrl
+
+   videoPlayer.channelId = data.channelId
+   videoPlayer.channelIdSpan.innerText = videoPlayer.channelId
+
+   //Hidding videoSelectorSection
+   videoSelectorSection.classList.remove('is-active')
+
+   //Display videoPlayerSection
+   videoPlayerSection.classList.add('is-active')
+
+   notification.displayNotification('success', 'You have joined a channel')
 })
 
 //If the client recieve 'Error'
@@ -180,7 +192,16 @@ socket.on('errorSend', (data) =>
    notification.displayNotification('error', errorMessage)
 })
 
-socket.on('test', (data) => 
+//If the client recieve 'Error'
+socket.on('successSend', (data) => 
 {
-   console.log('room test')
+   let succesMessage
+
+   switch (data.SuccessId)
+   {
+      case 'userJoinedChannel':
+         succesMessage = 'An user joined your channel'
+   }
+
+   notification.displayNotification('success', succesMessage)
 })
