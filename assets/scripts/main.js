@@ -68,8 +68,6 @@ class VideoLinkForm
             //We chain if the string of value contain http and // and .mp4
             if(value.substr(0, 4) == 'http' && value.includes('//') && value.substr(value.length-4, value.length-1) == '.mp4')
             {
-               notification.displayNotification('success', 'Your Channel has been created')
-
                videoLink = value
 
                socket.emit('createChannel', {'videoLink': value})
@@ -110,14 +108,24 @@ class VideoPlayer
       this.copyChannel()
    }
 
-   //copy link of the channel function
+   //copy link of the channel into clipboard
    copyChannel()
    {  
       this.copyChannelButton.addEventListener('click', () => 
       {
-         const sharedLink = window.location.hostname + ':' + location.port + '/video-player.html?channelId=' + this.channelId
-         sharedLink.select()
+
+         const sharedLink = window.location.hostname + ':' + location.port + '/video-player.html?ChannelId=' + this.channelId
+
+         const tempInput  = document.createElement('input')
+
+         //We create an input to copy the sahred link
+         tempInput.value = sharedLink
+         document.body.appendChild(tempInput)
+         tempInput.select()
          document.execCommand('copy')
+         document.body.removeChild(tempInput)
+
+         notification.displayNotification('success', 'You copied the link to the clipboard')
       })
    }
 }
@@ -143,13 +151,13 @@ if(currentUrl.includes('?ChannelId=#'))
 //If the client recieve 'SetChannelId'
 socket.on('setChannelId', (data) => 
 {
-   alert('Le chanel est' + data.channelId)
-
    //We save the channel into videoPlayer.channelId
    videoPlayer.channelId = data.channelId
 
    //Change the displaying of the channel
    videoPlayer.channelIdSpan.innerHTML = videoPlayer.channelId
+
+   notification.displayNotification('success', `You have created the channel ${ videoPlayer.channelId }`)
 })
 
 //If the client recieve 'SetChannelId'
