@@ -43,6 +43,34 @@ h1, h2, h3, h4 {
       top: 17px;
       left: 19px; }
 
+.joinChannelAlert {
+  position: absolute;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 641px;
+  height: 347px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 9px 9px 9px 9px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.07);
+  background: white;
+  z-index: 10; }
+  .joinChannelAlert .alertButton {
+    width: 231px;
+    height: 57px;
+    background: linear-gradient(102.31deg, #3A0365 22.72%, #00B894 94.83%);
+    border-radius: 9px;
+    border: 0;
+    color: white;
+    font-size: 17px;
+    margin-top: 35px;
+    font-weight: bold; }
+  .joinChannelAlert.is-active {
+    display: flex; }
+
 .videoPlayerMain {
   display: flex;
   justify-content: center;
@@ -161,6 +189,8 @@ h1, h2, h3, h4 {
           margin-left: 28px; }
           .videoPlayerMain .videoPlayerSection .videoPlayer .controls .buttonPlayPause--play {
             background-image: url("../images/playButton.svg"); }
+          .videoPlayerMain .videoPlayerSection .videoPlayer .controls .buttonPlayPause--pause {
+            background-image: url("../images/pauseButton.svg"); }
     .videoPlayerMain .videoPlayerSection.is-active {
       display: flex; }
 

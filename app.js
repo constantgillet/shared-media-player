@@ -75,6 +75,11 @@ io.sockets.on('connection', (socket) =>
             socket.emit('errorSend', { ErrorId: 'channelDoesntExist' })
         }
     })
+
+    socket.on('setPlayPause', (data) => 
+    {
+        socket.to(currentChannel).emit('setPlayPause', { action: data.action })        
+    })
     
     //if an user is disconnected
     socket.on('disconnect', () => 

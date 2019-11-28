@@ -1,8 +1,10 @@
 const body = document.querySelector('body')
 const videoSelectorSection = body.querySelector('.js-videoSelectorSection')
 const videoPlayerSection = body.querySelector('.js-videoPlayerSection')
-const currentUrl = window.location.href
+const joinChannelAlert = body.querySelector('.js-joinChannelAlert')
+const alertButton = joinChannelAlert.querySelector('.js-alertButton')
 
+const currentUrl = window.location.href
 //Connecting to socket io
 const socket = io.connect('http://localhost:8080')
 console.log("connected to socket")
@@ -110,7 +112,7 @@ class VideoPlayer
       this.copyChannel()
       this.timeTextUpdate()
 
-      //this.buttonPlayPause.addEventListener('click', this.playPause)
+      this.playPause()
    }
 
    //copy link of the channel into clipboard
@@ -140,6 +142,7 @@ class VideoPlayer
       let currentMinutes
       let currentSeconds
 
+      //display the current time of the video
       this.video.addEventListener('timeupdate', () => 
       {
          currentMinutes = Math.floor(this.video.currentTime / 60)
@@ -147,7 +150,6 @@ class VideoPlayer
          // if the number if < 10 we display a 0
          currentSeconds = ('0' + Math.floor(currentSeconds)).slice(-2)
          currentMinutes = ('0' + Math.floor(currentMinutes)).slice(-2)
-         console.log(currentMinutes + ':' + currentSeconds)
 
          this.currentTimeText.innerText = `${currentMinutes}:${currentSeconds}`
       })
@@ -155,14 +157,21 @@ class VideoPlayer
 
    playPause()
    {
-      if(this.video.paused)
+      this.buttonPlayPause.addEventListener('click', () => 
       {
-         this.video.play()
-      } 
-      else 
-      {
-         this.video.pause()
-      }
+         if(this.video.paused)
+         {
+            this.video.play()
+            this.buttonPlayPause.classList.replace('buttonPlayPause--play', 'buttonPlayPause--pause')
+            socket.emit('setPlayPause', { action: 'play' })
+         } 
+         else 
+         {
+            this.video.pause()
+            this.buttonPlayPause.classList.replace('buttonPlayPause--pause', 'buttonPlayPause--play')
+            socket.emit('setPlayPause', { action: 'pause' })
+         }
+      })
    }
 }
 
@@ -176,12 +185,19 @@ const videoPlayer = new VideoPlayer(document.querySelector('.js-videoPlayerSecti
 //We check if the client puted a channelId into the url
 if(currentUrl.includes('?ChannelId=#'))
 { 
-   const askedChannelId = currentUrl.substring(currentUrl.lastIndexOf('#'), currentUrl.length)
-   
-   console.log(`Trying to join the channel ${ askedChannelId }`)
+   joinChannelAlert.classList.add('is-active')
 
-   //We send the channel is to the server 
-   socket.emit('joinChannel', { channelId: askedChannelId })
+   alertButton.addEventListener('click', () => 
+   {
+      const askedChannelId = currentUrl.substring(currentUrl.lastIndexOf('#'), currentUrl.length)
+         
+      console.log(`Trying to join the channel ${ askedChannelId }`)
+
+      //We send the channel is to the server 
+      socket.emit('joinChannel', { channelId: askedChannelId })
+
+      joinChannelAlert.classList.remove('is-active')
+   })
 }
 
 //If the client recieve 'SetChannelId'
@@ -228,7 +244,7 @@ socket.on('errorSend', (data) =>
    notification.displayNotification('error', errorMessage)
 })
 
-//If the client recieve 'Error'
+//If the client recieve 'Success'
 socket.on('successSend', (data) => 
 {
    let succesMessage
@@ -240,4 +256,19 @@ socket.on('successSend', (data) =>
    }
 
    notification.displayNotification('success', succesMessage)
+})
+
+//If the client recieve 'setPlayPause'
+socket.on('setPlayPause', (data) => 
+{
+   if(data.action == 'play')
+   {
+      videoPlayer.video.play()
+      videoPlayer.buttonPlayPause.classList.replace('buttonPlayPause--play', 'buttonPlayPause--pause')
+   }
+   else
+   {
+      videoPlayer.video.pause()
+      videoPlayer.buttonPlayPause.classList.replace('buttonPlayPause--pause', 'buttonPlayPause--play')
+   }
 })
