@@ -106,13 +106,16 @@ class VideoPlayer
       this.channelId = null
       this.videoUrl = null
       this.copyChannelButton = this.element.querySelector('.js-copyChannelButton')
-      this.currentTimeText = this.element.querySelector('.js-currentTimeText')
-      this.buttonPlayPause = this.element.querySelector('.js-buttonPlayPause')
+      this.controls = this.element.querySelector('.js-controls')
+      this.currentTimeText = this.controls.querySelector('.js-currentTimeText')
+      this.buttonPlayPause = this.controls.querySelector('.js-buttonPlayPause')
+      this.seekBarElement = this.controls.querySelector('.js-seekBar')
+      this.seekBarFillElement = this.controls.querySelector('.js-fill')
 
       this.copyChannel()
       this.timeTextUpdate()
-
       this.playPause()
+      this.seekBar()
    }
 
    //copy link of the channel into clipboard
@@ -171,6 +174,15 @@ class VideoPlayer
             this.buttonPlayPause.classList.replace('buttonPlayPause--pause', 'buttonPlayPause--play')
             socket.emit('setPlayPause', { action: 'pause' })
          }
+      })
+   }
+
+   seekBar()
+   {
+      this.video.addEventListener('timeupdate', () => 
+      {
+         const ratio = this.video.currentTime / this.video.duration
+         this.seekBarFillElement.style.transform = `scaleX(${ratio})`
       })
    }
 }

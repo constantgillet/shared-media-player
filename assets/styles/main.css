@@ -191,6 +191,24 @@ h1, h2, h3, h4 {
             background-image: url("../images/playButton.svg"); }
           .videoPlayerMain .videoPlayerSection .videoPlayer .controls .buttonPlayPause--pause {
             background-image: url("../images/pauseButton.svg"); }
+        .videoPlayerMain .videoPlayerSection .videoPlayer .controls .seekBar {
+          position: relative;
+          height: 4px;
+          width: 828px;
+          background: rgba(155, 104, 196, 0.2);
+          border-radius: 2px;
+          top: 50%;
+          transform: translateY(-50%);
+          margin-left: 20px; }
+          .videoPlayerMain .videoPlayerSection .videoPlayer .controls .seekBar .fill {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(268.26deg, #3A0365 8.43%, #00B894 95.62%);
+            border-radius: 2px;
+            transform-origin: left;
+            transform: scaleX(0);
+            will-change: transform; }
     .videoPlayerMain .videoPlayerSection.is-active {
       display: flex; }
 
