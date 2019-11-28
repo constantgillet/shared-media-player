@@ -33,6 +33,7 @@ io.sockets.on('connection', (socket) =>
         const userChannel = 
         {
             videoLink: data.videoLink,
+            videoStatus: 'pause',
             clientsConnected: [thisClientId] // Array of the Id of the different users connected to  the channel
         }
 
@@ -56,17 +57,19 @@ io.sockets.on('connection', (socket) =>
         if(channels[data.channelId])
         {
             console.log(`A client is joigning ${ data.channelId }`)
+            
+            currentChannel = data.channelId
 
             // We add the client Id to the array of the connected clients
             channels[data.channelId].clientsConnected.push(thisClientId)
 
             socket.emit('joinChannel', { channelId: data.channelId, videoUrl: channels[data.channelId].videoLink })
+            
+            socket.emit('setPlayPause', { action: channels[currentChannel].videoStatus })  
 
             //joining the room with the room with the channel id 
             socket.join(data.channelId)
-
-            currentChannel = data.channelId
-
+            
             //We send a notification that an user joined the channel of the other users
             socket.to(currentChannel).emit('successSend', { SuccessId: 'userJoinedChannel' })
         }
@@ -78,6 +81,7 @@ io.sockets.on('connection', (socket) =>
 
     socket.on('setPlayPause', (data) => 
     {
+        channels[currentChannel].videoStatus = data.action
         socket.to(currentChannel).emit('setPlayPause', { action: data.action })        
     })
     
