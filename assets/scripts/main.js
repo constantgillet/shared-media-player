@@ -113,9 +113,8 @@ class VideoPlayer
       this.seekBarFillElement = this.controls.querySelector('.js-fill')
 
       this.copyChannel()
-      this.timeTextUpdate()
+      this.timeUpdate()
       this.playPause()
-      this.seekBar()
    }
 
    //copy link of the channel into clipboard
@@ -139,23 +138,26 @@ class VideoPlayer
       })
    }
 
-   //update the text of the time
-   timeTextUpdate()
+   timeUpdate()
    {
-      let currentMinutes
-      let currentSeconds
-
       //display the current time of the video
       this.video.addEventListener('timeupdate', () => 
       {
-         currentMinutes = Math.floor(this.video.currentTime / 60)
-         currentSeconds = Math.floor(this.video.currentTime - currentMinutes * 60) //On retire les minutes des secondes courantes
-         // if the number if < 10 we display a 0
-         currentSeconds = ('0' + Math.floor(currentSeconds)).slice(-2)
-         currentMinutes = ('0' + Math.floor(currentMinutes)).slice(-2)
-
-         this.currentTimeText.innerText = `${currentMinutes}:${currentSeconds}`
+         this.timeTextUpdate()
+         this.seekBarUpdate()
       })
+   }
+
+   //update the text of the time
+   timeTextUpdate()
+   {
+      let currentMinutes = Math.floor(this.video.currentTime / 60)
+      let currentSeconds = Math.floor(this.video.currentTime - currentMinutes * 60) //On retire les minutes des secondes courantes
+      // if the number if < 10 we display a 0
+      currentSeconds = ('0' + Math.floor(currentSeconds)).slice(-2)
+      currentMinutes = ('0' + Math.floor(currentMinutes)).slice(-2)
+
+      this.currentTimeText.innerText = `${currentMinutes}:${currentSeconds}`
    }
 
    playPause()
@@ -177,13 +179,10 @@ class VideoPlayer
       })
    }
 
-   seekBar()
+   seekBarUpdate()
    {
-      this.video.addEventListener('timeupdate', () => 
-      {
-         const ratio = this.video.currentTime / this.video.duration
-         this.seekBarFillElement.style.transform = `scaleX(${ratio})`
-      })
+      const ratio = this.video.currentTime / this.video.duration
+      this.seekBarFillElement.style.transform = `scaleX(${ratio})`
    }
 }
 
