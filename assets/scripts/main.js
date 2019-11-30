@@ -100,6 +100,7 @@ class VideoPlayer {
       this.copyChannel()
       this.timeUpdate()
       this.playPause()
+      this.seekBarAction()
    }
 
    //copy link of the channel into clipboard
@@ -161,6 +162,21 @@ class VideoPlayer {
    seekBarUpdate() {
       const ratio = this.video.currentTime / this.video.duration
       this.seekBarFillElement.style.transform = `scaleX(${ratio})`
+   }
+
+   seekBarAction() {
+      this.seekBarElement.addEventListener('click', (_event) => {
+         const bounding = this.seekBarElement.getBoundingClientRect()
+         const ratio = (_event.clientX - bounding.left) / bounding.width
+         // const ratio = _event.offsetX / this.seekBarElement.clientWidth
+
+         const time = ratio * this.video.duration
+
+         this.video.currentTime = time
+
+         //Send the video current Time to the server
+         socket.emit('changeCurrentTime', { currentTime: time })
+      })
    }
 }
 

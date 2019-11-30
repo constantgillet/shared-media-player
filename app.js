@@ -86,6 +86,10 @@ io.sockets.on('connection', (socket) => {
     socket.on('sendCurrentTime', (data) => {
         channels[currentChannel].currentTime = data.currentTime
     })
+
+    socket.on('changeCurrentTime', (data) => {
+        channels[currentChannel].currentTime = data.currentTime
+    })
     
     //if an user is disconnected
     socket.on('disconnect', () => {

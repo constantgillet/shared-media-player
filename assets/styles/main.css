@@ -193,7 +193,7 @@ h1, h2, h3, h4 {
             background-image: url("../images/pauseButton.svg"); }
         .videoPlayerMain .videoPlayerSection .videoPlayer .controls .seekBar {
           position: relative;
-          height: 4px;
+          height: 8px;
           width: 828px;
           background: rgba(155, 104, 196, 0.2);
           border-radius: 2px;
