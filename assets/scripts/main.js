@@ -267,3 +267,8 @@ socket.on('setPlayPause', (data) => {
       videoPlayer.buttonPlayPause.classList.replace('buttonPlayPause--pause', 'buttonPlayPause--play')
    }
 })
+
+//If the client recieve 'changeCurrentTime'
+socket.on('changeCurrentTime', (data) => {
+   videoPlayer.video.currentTime = data.currentTime
+})
