@@ -31,6 +31,7 @@ io.sockets.on('connection', (socket) => {
         const userChannel = {
             videoLink: data.videoLink,
             videoStatus: 'pause',
+            currentTime: 0,
             clientsConnected: [thisClientId] // Array of the Id of the different users connected to  the channel
         }
 
@@ -58,7 +59,11 @@ io.sockets.on('connection', (socket) => {
             // We add the client Id to the array of the connected clients
             channels[data.channelId].clientsConnected.push(thisClientId)
 
-            socket.emit('joinChannel', { channelId: data.channelId, videoUrl: channels[data.channelId].videoLink })
+            socket.emit('joinChannel', { 
+                channelId: currentChannel, 
+                videoUrl: channels[currentChannel].videoLink,
+                currentTime: channels[currentChannel].currentTime
+            })
             
             socket.emit('setPlayPause', { action: channels[currentChannel].videoStatus })  
 
@@ -76,6 +81,10 @@ io.sockets.on('connection', (socket) => {
     socket.on('setPlayPause', (data) => {
         channels[currentChannel].videoStatus = data.action
         socket.to(currentChannel).emit('setPlayPause', { action: data.action })        
+    })
+
+    socket.on('sendCurrentTime', (data) => {
+        channels[currentChannel].currentTime = data.currentTime
     })
     
     //if an user is disconnected

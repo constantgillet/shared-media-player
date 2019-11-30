@@ -126,6 +126,9 @@ class VideoPlayer {
       this.video.addEventListener('timeupdate', () => {
          this.timeTextUpdate()
          this.seekBarUpdate()
+
+         //Send the video current Time to the server
+         socket.emit('sendCurrentTime', { currentTime: this.video.currentTime })
       })
    }
 
@@ -199,7 +202,7 @@ socket.on('setChannelId', (data) => {
 socket.on('joinChannel', (data) => {
    videoPlayer.videoUrl = data.videoUrl
    videoPlayer.video.src = videoPlayer.videoUrl
-
+   videoPlayer.video.currentTime = data.currentTime
    videoPlayer.channelId = data.channelId
    videoPlayer.channelIdSpan.innerText = videoPlayer.channelId
 
