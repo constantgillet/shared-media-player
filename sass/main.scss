@@ -230,6 +230,7 @@ h1, h2, h3, h4 {
                     margin-top: 10px;
                     margin-left: 28px;
                     opacity: 0.8;
+                    user-select: none;
                 }
 
                 .buttonPlayPause {
@@ -238,6 +239,7 @@ h1, h2, h3, h4 {
                     height: 20px;
                     margin-top: 9px;
                     margin-left: 28px;
+                    user-select: none;
 
                     &--play {
                         background-image: url('../images/playButton.svg');
@@ -250,20 +252,21 @@ h1, h2, h3, h4 {
 
                 .seekBar {
                     position: relative;
-                    height: 8px;
+                    height: 12px;
                     width: 828px;
                     background: rgba(155, 104, 196, 0.2);
-                    border-radius: 2px;
+                    border-radius: 3px;
                     top: 50%;
                     transform: translateY(-50%);
                     margin-left: 20px;
+                    user-select: none;
                     
                     .fill {
                         position: absolute;
                         width: 100%;
                         height: 100%;
                         background: linear-gradient(268.26deg, #3A0365 8.43%, #00B894 95.62%);
-                        border-radius: 2px;
+                        border-radius: 3px;
                         transform-origin: left;
                         transform: scaleX(0);
                         will-change: transform;

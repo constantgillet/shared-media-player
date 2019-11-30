@@ -165,18 +165,38 @@ class VideoPlayer {
    }
 
    seekBarAction() {
-      this.seekBarElement.addEventListener('click', (_event) => {
-         const bounding = this.seekBarElement.getBoundingClientRect()
-         const ratio = (_event.clientX - bounding.left) / bounding.width
-         // const ratio = _event.offsetX / this.seekBarElement.clientWidth
 
-         const time = ratio * this.video.duration
-
-         this.video.currentTime = time
-
-         //Send the video current Time to the server
-         socket.emit('changeCurrentTime', { currentTime: time })
+      let mouseDown
+      this.seekBarElement.addEventListener('mousedown', (_event) => {     
+         this.changeVideoFromSeekbar(_event)
       })
+
+      this.seekBarElement.addEventListener('mousedown', () => {        
+         mouseDown = true
+      })
+
+      document.addEventListener('mouseup', (_event) => {
+         mouseDown =  false
+      })
+
+      this.seekBarElement.addEventListener('mousemove', (_event) => {
+         if(mouseDown) {
+            this.changeVideoFromSeekbar(_event)
+         }
+      })
+   }
+
+   changeVideoFromSeekbar(_event){
+      const bounding = this.seekBarElement.getBoundingClientRect()
+      const ratio = (_event.clientX - bounding.left) / bounding.width
+      // const ratio = _event.offsetX / this.seekBarElement.clientWidth
+
+      const time = ratio * this.video.duration
+
+      this.video.currentTime = time
+
+      //Send the video current Time to the server
+      socket.emit('changeCurrentTime', { currentTime: time })
    }
 }
 
