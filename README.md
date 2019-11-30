@@ -13,23 +13,24 @@ Follow [this link](https://nodejs.org/en/) to install it
 
 
 
-### Installing on your local machine
+### Installing and lauch the project on your local machine
 
-A step by step series of examples that tell you how to get a development env running
+Follow these steps to install the project on your computer, be sure that NodeJS is installed
+Enter these commands into a CMD
 
-Say what the step will be
-
+Go to the project location:
+For example
 ```
-Give the example
-```
-
-And repeat
-
-```
-until finished
+cd C://ThePathToTheProjectLocation
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+Install required modules
+```
+npm install
+```
+
+Now you can open your internet navigator, the initial port of the project is 8080
+[Local host](http://localhost:8080)
 
 ## Running the tests
 
