@@ -29,14 +29,15 @@ Install required modules
 npm install
 ```
 
+Now you can launch the server 
+```
+node app.js
+```
+
 Now you can open your internet navigator, the initial port of the project is 8080
 [Local host](http://localhost:8080)
 
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
+## Deploy the server on another network / computer / server
 
 Explain what these tests test and why
 
