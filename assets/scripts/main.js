@@ -97,11 +97,15 @@ class VideoPlayer {
       this.seekBarElement = this.controls.querySelector('.js-seekBar')
       this.seekBarFillElement = this.controls.querySelector('.js-fill')
       this.timeToEndText = this.controls.querySelector('.js-TimeToEndText')
+      this.buttonVolume = this.controls.querySelector('.js-buttonVolume')
+      this.volumeSeekBar = this.controls.querySelector('.js-volumeSeekBar')
+      this.volumeCursor = this.volumeSeekBar.querySelector('.js-volumeCursor')
 
       this.copyChannel()
       this.timeUpdate()
       this.playPause()
       this.seekBarAction()
+      this.buttonVolumeAction()
       this.pauseWhenFinished()
    }
 
@@ -221,6 +225,23 @@ class VideoPlayer {
    pauseWhenFinished() {
       this.video.addEventListener('ended', () => {
          this.buttonPlayPause.classList.replace('buttonPlayPause--pause', 'buttonPlayPause--play')
+      })
+   }
+
+   buttonVolumeAction() {
+      let volumeSeekbarDisplayed = false
+
+      this.buttonVolume.addEventListener('click', () => {
+         if(volumeSeekbarDisplayed) {
+            this.seekBarElement.classList.remove('changeVolume')
+            this.volumeSeekBar.classList.remove('is-active')
+            volumeSeekbarDisplayed = false
+         }
+         else {
+            this.seekBarElement.classList.add('changeVolume')
+            this.volumeSeekBar.classList.add('is-active')
+            volumeSeekbarDisplayed = true
+         }
       })
    }
 }
