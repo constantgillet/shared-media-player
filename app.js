@@ -49,6 +49,7 @@ io.sockets.on('connection', (socket) => {
         console.log(`A client has created a channel id: ${ thisUserChannelId }, video url: ${ data.videoLink }`)
     })
 
+    //When a user join a channel
     socket.on('joinChannel', (data) => {
         //We check that the channel exist
         if(channels[data.channelId]) {
@@ -92,9 +93,9 @@ io.sockets.on('connection', (socket) => {
         socket.to(currentChannel).emit('changeCurrentTime', { currentTime: data.currentTime })   
     })
     
-    //if an user is disconnected
+    //if an user disconnect
     socket.on('disconnect', () => {
-        console.log('user disconnected')
+        socket.to(currentChannel).emit('errorSend', { ErrorId: 'userLeaved' })  
     })
 })
 

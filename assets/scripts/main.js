@@ -41,7 +41,7 @@ class Notification {
 }
 
 
-
+// Class of the form to link a video
 class VideoLinkForm {
    constructor(_element) {
       this.element = _element
@@ -83,6 +83,7 @@ class VideoLinkForm {
    }
 }
 
+//Class of the video player
 class VideoPlayer {
    constructor(_element) {
       this.element = _element
@@ -154,6 +155,7 @@ class VideoPlayer {
       this.currentTimeText.innerText = `${currentMinutes}:${currentSeconds}`
    }
 
+   // play or pause video function
    playPause() {
       this.buttonPlayPause.addEventListener('click', () => {
          if(this.video.paused) {
@@ -169,13 +171,14 @@ class VideoPlayer {
       })
    }
 
+   //Update the size of the seekbar
    seekBarUpdate() {
       const ratio = this.video.currentTime / this.video.duration
       this.seekBarFillElement.style.transform = `scaleX(${ratio})`
    }
 
+   // Event on the seekbar
    seekBarAction() {
-
       let mouseDown
       this.seekBarElement.addEventListener('mousedown', (_event) => {     
          this.changeVideoFromSeekbar(_event)
@@ -196,6 +199,7 @@ class VideoPlayer {
       })
    }
 
+   //change the time of the video function
    changeVideoFromSeekbar(_event){
       const bounding = this.seekBarElement.getBoundingClientRect()
       const ratio = (_event.clientX - bounding.left) / bounding.width
@@ -248,6 +252,7 @@ class VideoPlayer {
       })
    }
 
+   //Events on the volume seekbar
    volumeSeekBarAction() {
       let mouseDown
 
@@ -282,6 +287,7 @@ class VideoPlayer {
       this.volumeSeekBarFill.style.transform = `scaleX(${ratio})`
    }
 
+   //Hidde or display the video controls
    controlsDisplay() {
       let timeout
 
@@ -363,6 +369,9 @@ socket.on('errorSend', (data) => {
    {
       case 'channelDoesntExist':
          errorMessage = 'This channel doesn\'t exist'
+         break
+      case 'userLeaved':
+         errorMessage = 'An user leaved the channel'
    }
 
    notification.displayNotification('error', errorMessage)
