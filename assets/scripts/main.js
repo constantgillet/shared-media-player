@@ -96,11 +96,13 @@ class VideoPlayer {
       this.buttonPlayPause = this.controls.querySelector('.js-buttonPlayPause')
       this.seekBarElement = this.controls.querySelector('.js-seekBar')
       this.seekBarFillElement = this.controls.querySelector('.js-fill')
+      this.timeToEndText = this.controls.querySelector('.js-TimeToEndText')
 
       this.copyChannel()
       this.timeUpdate()
       this.playPause()
       this.seekBarAction()
+      this.pauseWhenFinished()
    }
 
    //copy link of the channel into clipboard
@@ -127,6 +129,7 @@ class VideoPlayer {
       this.video.addEventListener('timeupdate', () => {
          this.timeTextUpdate()
          this.seekBarUpdate()
+         this.timeToEnd()
 
          //Send the video current Time to the server
          socket.emit('sendCurrentTime', { currentTime: this.video.currentTime })
@@ -179,7 +182,7 @@ class VideoPlayer {
          mouseDown =  false
       })
 
-      this.seekBarElement.addEventListener('mousemove', (_event) => {
+      this.element.addEventListener('mousemove', (_event) => {
          if(mouseDown) {
             this.changeVideoFromSeekbar(_event)
          }
@@ -197,6 +200,28 @@ class VideoPlayer {
 
       //Send the video current Time to the server
       socket.emit('changeCurrentTime', { currentTime: time })
+   }
+
+   //Change to text of the time to end
+   timeToEnd() {
+      let minutesToEnd = Math.floor((this.video.duration - this.video.currentTime) / 60) //
+      let secondsToEnd = Math.floor((this.video.duration - this.video.currentTime) - minutesToEnd * 60) 
+
+      // if the number if < 10 we display a 0
+      minutesToEnd = ('0' + Math.floor(minutesToEnd)).slice(-2)
+      secondsToEnd = ('0' + Math.floor(secondsToEnd)).slice(-2)
+
+      if(!isNaN(minutesToEnd) && !isNaN(secondsToEnd))
+      {
+         this.timeToEndText.innerText = `${minutesToEnd}:${secondsToEnd}`
+      }
+   }
+
+   //change the button when the video is ended
+   pauseWhenFinished() {
+      this.video.addEventListener('ended', () => {
+         this.buttonPlayPause.classList.replace('buttonPlayPause--pause', 'buttonPlayPause--play')
+      })
    }
 }
 

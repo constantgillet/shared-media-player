@@ -196,7 +196,7 @@ h1, h2, h3, h4 {
         .videoPlayerMain .videoPlayerSection .videoPlayer .controls .seekBar {
           position: relative;
           height: 12px;
-          width: 828px;
+          width: 800px;
           background: rgba(155, 104, 196, 0.2);
           border-radius: 3px;
           top: 50%;
@@ -212,6 +212,11 @@ h1, h2, h3, h4 {
             transform-origin: left;
             transform: scaleX(0);
             will-change: transform; }
+        .videoPlayerMain .videoPlayerSection .videoPlayer .controls .TimeToEnd {
+          margin-top: 10px;
+          margin-left: 28px;
+          opacity: 0.8;
+          user-select: none; }
     .videoPlayerMain .videoPlayerSection.is-active {
       display: flex; }
 
