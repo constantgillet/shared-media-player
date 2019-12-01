@@ -99,7 +99,7 @@ class VideoPlayer {
       this.timeToEndText = this.controls.querySelector('.js-TimeToEndText')
       this.buttonVolume = this.controls.querySelector('.js-buttonVolume')
       this.volumeSeekBar = this.controls.querySelector('.js-volumeSeekBar')
-      this.volumeCursor = this.volumeSeekBar.querySelector('.js-volumeCursor')
+      this.volumeSeekBarFill = this.volumeSeekBar.querySelector('.js-volumeSeekBarFill')
 
       this.copyChannel()
       this.timeUpdate()
@@ -107,6 +107,7 @@ class VideoPlayer {
       this.seekBarAction()
       this.buttonVolumeAction()
       this.pauseWhenFinished()
+      this.volumeSeekBarAction()
    }
 
    //copy link of the channel into clipboard
@@ -243,6 +244,40 @@ class VideoPlayer {
             volumeSeekbarDisplayed = true
          }
       })
+   }
+
+   volumeSeekBarAction() {
+      let mouseDown
+
+      this.volumeSeekBar.addEventListener('mousedown', (_event) => {     
+         this.changeVolume(_event)
+      })
+
+      this.volumeSeekBar.addEventListener('mousedown', () => {        
+         mouseDown = true
+      })
+
+      document.addEventListener('mouseup', (_event) => {
+         mouseDown =  false
+      })
+
+      this.element.addEventListener('mousemove', (_event) => {
+         if(mouseDown) {
+            this.changeVolume(_event)
+         }
+      })
+   }
+
+   changeVolume(_event) {
+      const bounding = this.volumeSeekBar.getBoundingClientRect()
+      let ratio = (_event.clientX - bounding.left) / bounding.width
+      if(ratio < 0)
+         ratio = 0
+      else if(ratio > 1)
+         ratio = 1
+      
+      this.video.volume = ratio
+      this.volumeSeekBarFill.style.transform = `scaleX(${ratio})`
    }
 }
 
