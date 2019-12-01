@@ -233,7 +233,7 @@ h1, h2, h3, h4 {
             video {
                 object-fit: cover;
                 width: $mainWidth;
-                height: $mainHeight;
+                height: 100%;
                 border-radius: 14px;
                 box-shadow: 0px 4px 13px 0px rgba(0, 0, 0, 0.4);
             }
@@ -438,4 +438,141 @@ h1, h2, h3, h4 {
     100% {
         transform: translateY(0px);
     }
+}
+
+
+@media screen and (max-width: 1169px)
+{
+    .videoPlayerMain {
+        .videoSelectorSection {
+            width: 95%;
+        }
+
+        .videoSelectorSection {
+            .videoForm .linkInput {
+                width: 170%;
+            }
+        }
+
+        .videoPlayerSection{
+            .videoPlayer {  
+                width: 126%;
+                height: 425px;
+
+                .controls {
+                    .seekBar {
+                        width: 505px;
+
+                        &.changeVolume {
+                            width: 300px;
+                            transition: width 0.7s ease-out;
+                        }
+                    }
+                    .volumeSeekBar {
+                        margin-right: 51px;
+                    }
+                }
+                video {
+                    width: 100%;
+                }
+            }
+        } 
+    }   
+}
+
+
+@media screen and (max-width: 817px)
+{
+    .videoPlayerMain {
+        .videoSelectorSection {
+            width: 95%;
+            height: 70%;
+
+            .videoForm .linkInput {
+                width: 170%;
+            }
+        }
+
+        .videoPlayerSection{
+            .videoPlayer {  
+                width: 79%;
+                height: 275px;
+
+                .controls {
+                    .seekBar {
+                        width: 185px;
+
+                        &.changeVolume {
+                            width: 100px;
+                            transition: width 0.7s ease-out;
+                        }
+                    }
+                    .volumeSeekBar {
+                        margin-right: 14px;
+                        width: 110px;
+                    }
+
+                    .currentTime {
+                        margin-top: 11px;
+                        margin-left: 12px;
+                        font-size: 13px;
+                    }
+
+                    .TimeToEnd {
+                        margin-top: 12px;
+                        margin-left: 11px;
+                        font-size: 13px;
+                    }
+                }
+            }
+        } 
+    }   
+}
+
+@media screen and (max-width: 609px)
+{
+    .videoPlayerMain {
+        .videoSelectorSection {
+            width: 95%;
+            height: 70%;
+
+            .videoForm .linkInput {
+                width: 130%;
+            }
+        }
+
+        .videoPlayerSection{
+            .videoPlayerHeader {
+                font-size: 17px;
+
+                .channelId {
+                    font-size: 17px;
+                }
+            }
+
+            .videoPlayer {  
+                    width: 400px;
+                    height: 255px;
+
+                .controls {
+                    .seekBar {
+                        width: 185px;
+
+                        &.changeVolume {
+                            width: 100px;
+                            transition: width 0.7s ease-out;
+                        }
+                    }
+                    .volumeSeekBar {
+                        margin-right: 14px;
+                        width: 83px;
+                    }
+
+                    .buttonVolume {
+                        margin-left: 7px;
+                    }
+                }
+            }
+        } 
+    }   
 }
