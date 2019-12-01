@@ -225,7 +225,8 @@ h1, h2, h3, h4 {
                 background: rgba(52, 42, 60, 0.7);
                 bottom: 0px;
                 color: white;
-                display: flex;
+                display: none;
+                opacity: 0;
 
                 .currentTime {
                     margin-top: 10px;
@@ -339,6 +340,15 @@ h1, h2, h3, h4 {
                         will-change: transform;
                     }
                 }
+
+                &.is-active {
+                    display: flex;
+                    animation: displayControls 0.2s ease-in forwards;
+                }
+
+                &.is-notActive {
+                    animation: displayControls 0.5s ease-in backwards reverse;
+                }
             }
         }
 
@@ -370,6 +380,15 @@ h1, h2, h3, h4 {
     }
     50% {
         opacity: 1;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes displayControls {
+    0% {
+        opacity: 0;
     }
     100% {
         opacity: 1;

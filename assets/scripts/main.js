@@ -90,6 +90,7 @@ class VideoPlayer {
       this.video = this.element.querySelector('.js-video')
       this.channelId = null
       this.videoUrl = null
+      this.controlsDisplayed = false
       this.copyChannelButton = this.element.querySelector('.js-copyChannelButton')
       this.controls = this.element.querySelector('.js-controls')
       this.currentTimeText = this.controls.querySelector('.js-currentTimeText')
@@ -108,6 +109,7 @@ class VideoPlayer {
       this.buttonVolumeAction()
       this.pauseWhenFinished()
       this.volumeSeekBarAction()
+      this.controlsDisplay()
    }
 
    //copy link of the channel into clipboard
@@ -278,6 +280,27 @@ class VideoPlayer {
       
       this.video.volume = ratio
       this.volumeSeekBarFill.style.transform = `scaleX(${ratio})`
+   }
+
+   controlsDisplay() {
+      let timeout
+
+      this.element.addEventListener('mousemove', () => {
+         clearTimeout(timeout) 
+         
+         if(!this.controlsDisplayed) {
+            this.controls.classList.add('is-active')
+            this.controlsDisplayed = true
+         }
+
+         timeout = setTimeout(() => {
+            if(!this.video.paused) {
+               this.controls.classList.remove('is-active')
+               this.controlsDisplayed = false
+            }
+         }, 2500)
+      })
+
    }
 }
 

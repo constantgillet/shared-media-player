@@ -177,7 +177,8 @@ h1, h2, h3, h4 {
         background: rgba(52, 42, 60, 0.7);
         bottom: 0px;
         color: white;
-        display: flex; }
+        display: none;
+        opacity: 0; }
         .videoPlayerMain .videoPlayerSection .videoPlayer .controls .currentTime {
           margin-top: 10px;
           margin-left: 28px;
@@ -261,6 +262,11 @@ h1, h2, h3, h4 {
             border-radius: 3px;
             transform-origin: left;
             will-change: transform; }
+        .videoPlayerMain .videoPlayerSection .videoPlayer .controls.is-active {
+          display: flex;
+          animation: displayControls 0.2s ease-in forwards; }
+        .videoPlayerMain .videoPlayerSection .videoPlayer .controls.is-notActive {
+          animation: displayControls 0.5s ease-in backwards reverse; }
     .videoPlayerMain .videoPlayerSection.is-active {
       display: flex; }
 
@@ -278,6 +284,11 @@ h1, h2, h3, h4 {
     opacity: 0; }
   50% {
     opacity: 1; }
+  100% {
+    opacity: 1; } }
+@keyframes displayControls {
+  0% {
+    opacity: 0; }
   100% {
     opacity: 1; } }
 
