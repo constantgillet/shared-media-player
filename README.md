@@ -39,44 +39,36 @@ Now you can open your internet navigator, the initial port of the project is 808
 
 ## Deploy the server on another network / computer / server
 
-Explain what these tests test and why
+The project is configured to use it in localhost but of course you can put it on a VPS or dedicated server , webhosting server.
+You just have to change some IP adress and port.
+In video-player.html, at the end
 
 ```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
+Replace "http://127.0.0.1:8080/socket.io/socket.io.js"
+By "http://YourIpAdress:TheServerPort/socket.io/socket.io.js"
 
 ```
-Give an example
+In assets/scripts/main.js
+```
+Replace "http://localhost:8080"
+By "http://YourIpAdress:TheServerPort"
+
 ```
 
-## Deployment
+In app.js
 
-Add additional notes about how to deploy this on a live system
+```
+Replace "server.listen(8080)"
+By "server.listen(YourNodeJSPort)"
 
+```
 ## Built With
 
 * [NodeJS](https://nodejs.org/en/) - The web framework used
 * [Express](https://expressjs.com/) - Express
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
 
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Authors
 
 * **Constant Gillet** - *Project creator, lead developper* - [Constant Gillet](https://github.com/constantgillet)
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
