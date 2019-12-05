@@ -1,13 +1,33 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Video player</title>
-    <link rel="stylesheet" href="assets/styles/main.css">
+    <title>Shared Video Player</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/styles/index.css">
 </head>
 <body>
-    <head>ok</head>
+    <main class="main">
+        <h1 class="mainTitle">Shared video player</h1>
+        <div class="container">
+            <section class="shareVideo">
+                <h2 class="subTitle">Share</h2>
+                <p class="description">
+                    Watch a video with someone else at the same time.
+                </p>
+                <a href="video-player.html" htr><button class="shareButton">Share</button></a>
+            </section>
+            <section class="joinChannel">
+                <h2 class="subTitle">Join</h2>
+                <form action="/submit-videoLink" method="post" class="joinChannelForm js-joinChannelForm">
+                    <input type="text" name="videoChannel" placeholder="#J5S_4d78" class="videoChannel js-videoChannel" required>
+                    <input type="submit" name="" value="Join" class="submitButton js-submitButton">
+                </form>
+            </section>
+        </div>
+    </main>
+    <script src="assets/scripts/index.js"></script>
 </body>
 </html>
